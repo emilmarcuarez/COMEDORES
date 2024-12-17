@@ -41,30 +41,31 @@ export default function Personal() {
       <h2 className='text-blue-950 font-bold text-xl pb-2'>Gestión de Personal</h2>
     
 
-    <div>
-        <div className=''>
-          <div className='flex justify-between p-2 bg-blue-950 rounded'>
-            <p className='text-white font-bold'>Nombre</p>
-            <p className='text-white font-bold'>Apellido</p>
-            <p className='text-white font-bold'>Cedula / Rif</p>
-            <p className='text-white font-bold'>Departamento</p>
-            <p className='text-white font-bold'>Empresa</p>
-          </div>
-        </div>
-        <div>
-        {personal.map((persona) => (
-            <div className='flex justify-between bg-gray-200' key={personal.id}>
-              <p className='p-2'>{persona.nombre || 'Nuevo Personal'}</p>
-              <p className='p-2'>{persona.apellido || '0'}</p>
-              <p className='p-2'>{persona.cedula_rif || '0'}</p>
-              <p className='p-2'>{persona.departamento?.descripcion || '0'}</p>
-              <p className='p-2'>{persona.empresa?.descripcion || '0'}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-
+      <div className="overflow-x-auto">
+      <table className="min-w-full table-auto">
+      <thead>
+          <tr className="bg-blue-950 text-white">
+            <th className="p-2 text-center font-bold">Nombre</th>
+            <th className="p-2 text-center font-bold">Apellido</th>
+            <th className="p-2 text-center font-bold">Cedula / Rif</th>
+            <th className="p-2 text-center font-bold">Departamento</th>
+            <th className="p-2 text-center font-bold">Empresa</th>
+          </tr>
+        
+        </thead>
+          <tbody>
+          {personal.map((persona) => (
+              <tr className="bg-gray-200 border-t"  key={personal.id}>
+                <td className="p-2 text-center">{persona.nombre || 'Nuevo Personal'}</td>
+                <td className="p-2 text-center">{persona.apellido || '0'}</td>
+                <td className="p-2 text-center">{persona.cedula_rif || '0'}</td>
+                <td className="p-2 text-center">{persona.departamento?.descripcion || '0'}</td>
+                <td className="p-2 text-center">{persona.empresa?.descripcion || '0'}</td>
+              </tr>
+            ))}
+         </tbody>
+       </table>
+ </div>
       <h3 className='pt-5  text-blue-950'>Agregar Personal</h3>
       <form onSubmit={e => {
         e.preventDefault();

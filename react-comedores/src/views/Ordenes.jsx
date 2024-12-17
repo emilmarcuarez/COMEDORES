@@ -57,18 +57,20 @@ function CrearOrden() {
   };
 
   return (
-    <div className='m-auto w-3/4'>
+    <div className='m-auto w-3/4 mb-20'>
 
    
     <OrdenesList />
 
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="pt-9">
       <h1 className='text-blue-950 font-bold text-xl pb-2'>Crear Orden</h1>
 
       {/* Selección de empresa */}
-      <label>
-        Seleccionar Empresa:
-        <select onChange={(e) => setSelectedEmpresa(e.target.value)} required>
+      <label className="pt-8">
+        <p className='font-bold text-xl pb-2'>Seleccionar Empresa: </p>
+        <select
+        className="w-full p-1 border border-gray-600 rounded"
+        onChange={(e) => setSelectedEmpresa(e.target.value)} required>
           <option value="">Seleccione una empresa</option>
           {empresas.map((empresa) => (
             <option key={empresa.id} value={empresa.id}>
@@ -79,34 +81,37 @@ function CrearOrden() {
       </label>
 
       {/* Lista de productos con cantidades */}
-      <h2>Productos</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Precio</th>
-            <th>Cantidad</th>
-          </tr>
-        </thead>
-        <tbody>
-          {productosConCantidad.map((producto) => (
-            <tr key={producto.id}>
-              <td>{producto.nombre}</td>
-              <td>{producto.precio}</td> {/* Cambia según el atributo del precio */}
-              <td>
-                <input
-                  type="number"
-                  min="0"
-                  value={producto.cantidad}
-                  onChange={(e) => handleCantidadChange(producto.id, e.target.value)}
-                />
-              </td>
+      <h2 className="pt-5 pb-3">Productos</h2>
+      <div className="overflow-x-auto">
+        <table className="min-w-full table-auto">
+          <thead>
+            <tr className="bg-blue-950 text-white">
+              <th className="p-2 text-center font-bold">Producto</th>
+              <th className="p-2 text-center font-bold">Cantidad</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <button type="submit">Crear Orden</button>
+          </thead>
+          <tbody>
+            {productosConCantidad.map((producto) => (
+              <tr key={producto.id}>
+                <td className="font-bold py-2">{producto.nombre}</td>
+              
+                <td>
+                  <input
+                  className="w-full text-center"
+                    type="number"
+                    min="0"
+                    placeholder={producto.cantidad}
+                    onChange={(e) => handleCantidadChange(producto.id, e.target.value)}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <button 
+      className="mt-5 p-2 w-full bg-gray-800 rounded text-white"
+      type="submit">Crear Orden</button>
     </form>
     </div>
   );

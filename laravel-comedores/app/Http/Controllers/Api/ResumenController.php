@@ -94,7 +94,8 @@ class ResumenController extends Controller
         $query = Resumen::query();
     
         // Filtrar por rango de fechas
-        if ($request->has('start_date') && $request->has('end_date')) {
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            // Asegurar que start_date sea el inicio del día y end_date sea el final del día
             $startDate = Carbon::parse($request->input('start_date'))->startOfDay();
             $endDate = Carbon::parse($request->input('end_date'))->endOfDay();
     
@@ -126,6 +127,7 @@ class ResumenController extends Controller
     
         return response()->json($resumenes);
     }
+    
     
     
     

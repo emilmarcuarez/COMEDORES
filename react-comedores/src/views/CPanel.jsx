@@ -8,9 +8,7 @@ export default function CPanel(){
             </div>
             <div className='bg-blue-900 p-2'>
                 <nav className='text-sm font-bold flex items-center gap-10 justify-center'>
-                    <NavLink to="/cpanel/productos" className="text-white">
-                        Productos
-                    </NavLink>
+                  
                     <NavLink to="/cpanel/empresas" className="text-white">
                         Empresas
                     </NavLink>

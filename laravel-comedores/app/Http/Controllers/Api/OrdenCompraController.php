@@ -9,23 +9,28 @@ use Illuminate\Support\Facades\DB;
 
 class OrdenCompraController extends Controller
 {
-    public function index(Request $request) 
+    public function index(Request $request)
     {
         // Inicializar la consulta de las órdenes con sus relaciones
         $query = OrdenCompra::with(['empresa', 'departamento', 'productos.producto']);
         
-        // Verificar si hay filtros de fecha
-        if ($request->has('start_date') && $request->has('end_date')) {
-            // Filtrar por rango de fechas
-            $query->whereBetween('created_at', [$request->start_date, $request->end_date]);
+        // Verificar si hay filtros de fecha y que las fechas sean válidas
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            // Asegurarse de que las fechas estén formateadas correctamente y extender end_date hasta el final del día
+            $startDate = $request->start_date;
+            $endDate = $request->end_date . ' 23:59:59';
+            
+            // Filtrar por rango de fechas incluyendo el final del día para end_date
+            $query->whereBetween('created_at', [$startDate, $endDate]);
         }
-
+        
         // Obtener las órdenes filtradas o sin filtro
         $ordenes = $query->get();
-
+        
         // Retornar las órdenes como respuesta JSON
         return response()->json($ordenes);
     }
+    
     
 
     public function store(Request $request)
